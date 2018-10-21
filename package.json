@@ -26,6 +26,7 @@
     "email-validator": "^1.2.3",
     "express": "^4.16.3",
     "lodash": "^4.17.11",
+    "moment": "^2.22.2",
     "mongodb": "^2.2.36",
     "randomstring": "^1.1.5",
     "swagger": "^0.7.5",
