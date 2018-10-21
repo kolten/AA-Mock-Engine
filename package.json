@@ -21,6 +21,7 @@
   "homepage": "https://github.com/AmericanAirlines/AA-Mock-Engine#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "bull": "^3.4.8",
     "dotenv": "^4.0.0",
     "email-validator": "^1.2.3",
     "express": "^4.16.3",

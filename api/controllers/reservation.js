@@ -4,6 +4,7 @@ const mongoHelper       = require('../helpers/mongoHelper');
 const randomstring      = require('randomstring');
 const users             = require('./user');
 const flights           = require('./flight');
+const q                 = require('../middleware/reminder');
 
 module.exports = {
     reservation: reservation,
@@ -11,9 +12,9 @@ module.exports = {
 };
 
 function reservation(req, res) {
-    var recordLocator = _.get(req, "swagger.params.recordLocator.value");
-    if (recordLocator != null && recordLocator != "") {
-        let reservation = retrieveReservation(recordLocator).then(function(reservation) {
+    var userId = _.get(req, "swagger.params.userId.value");
+    if (userId != null && userId != "") {
+        retrieveReservation(userId).then(function(reservation) {
             if (reservation != null && _.get(reservation, "err") == null) {
                 hydrateReservationResponse(reservation).then(function(hydratedReservation) {
                     res.json(hydratedReservation);
@@ -47,6 +48,8 @@ function createReservation(req, res) {
                     console.log(err);
                     return;
                 };
+                // set reminders
+                //setReminders(reservation.flightIds)
                 res.json(reservation);
             });
         } catch(err) {
@@ -74,11 +77,11 @@ function createRecordLocator() {
     }
 }
 
-function retrieveReservation(recordLocator) {
+function retrieveReservation(userId) {
     let reservations = mongoHelper.getDb().collection("reservation");
     return new Promise(function(resolve, reject) {
         try {
-            reservations.findOne({"recordLocator": recordLocator}, function(err, reservation) {
+            reservations.findOne({"userId": userId}, function(err, reservation) {
                 if (err) {
                     console.log(err);
                     resolve({"err": err});
@@ -122,4 +125,14 @@ function hydrateReservationResponse(reservation) {
             reject(err);
         }
     });
+}
+
+function setReminders(ids) {
+    let f = flights.retrieveFlights(ids)
+
+    f.then((res) => {
+        res.forEach(element => {
+            // TODO: Add to queue
+        });
+    })
 }

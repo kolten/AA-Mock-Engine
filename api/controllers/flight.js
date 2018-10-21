@@ -163,3 +163,7 @@ function setFlightStatus(req, res) {
     }
 
 }
+
+function updateFlightDate(req, res) {
+
+}

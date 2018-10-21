@@ -105,9 +105,9 @@ paths:
         - Reservation
       operationId: reservation
       parameters:
-        - name: recordLocator
+        - name: userId
           in: query
-          description: "6 character string for the desired reservation"
+          description: "Users id"
           required: true
           type: string
       responses:
