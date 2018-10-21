@@ -14,14 +14,14 @@ reminder.process(function(job, done){
   const am_pm = hour >= 12 ? 'pm' : 'am';
   hour %= 12;
   const minutes = new Date(reservation.departureTime).getMinutes();
-  client.messages.create({
-    body: `Hello ${user.firstName} ${user.lastName}! Your flight departing for ${hour}:${minutes} ${am_pm} is ${reservation.flightStatus}, check out www.aa.com/update for more info` ,
-    to: `${user.phone}`,  // Text this number
-    from: '+19728467640' // From a valid Twilio number
-})
-  .then((message) => console.log(message.sid), done())
-  .catch((err) => console.log(err))
-console.log(job.data);
+//   client.messages.create({
+//     body: `Hello ${user.firstName} ${user.lastName}! Your flight departing for ${hour}:${minutes} ${am_pm} is ${reservation.flightStatus}, check out www.aa.com/update for more info` ,
+//     to: `${user.phone}`,  // Text this number
+//     from: '+19728467640' // From a valid Twilio number
+// })
+//   .then((message) => console.log(message.sid), done())
+//   .catch((err) => console.log(err))
+  console.log(hour, minutes, am_pm);
   done();
 });
 
