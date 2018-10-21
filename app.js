@@ -7,7 +7,7 @@ const SwaggerExpress = require('swagger-express-mw');
 const SwaggerUI      = require('swagger-tools/middleware/swagger-ui');
 const _              = require('lodash');
 const mongoHelper    = require('./api/helpers/mongoHelper');
-
+const cors = require('cors')
 const app            = express();
 const port = process.env.PORT || 3030;
 
@@ -18,6 +18,7 @@ let config = {
   appRoot: appRoot     // required config
 };
 
+app.use(cors());
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) { throw err; }
