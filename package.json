@@ -33,7 +33,8 @@
     "swagger-express-mw": "^0.1.0",
     "swagger-tools": "^0.10.4",
     "swagger-ui": "^3.19.0",
-    "tar": "^4.4.6"
+    "tar": "^4.4.6",
+    "twilio": "^3.23.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.4",

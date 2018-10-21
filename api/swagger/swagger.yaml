@@ -88,6 +88,11 @@ paths:
           description: AAdvantage number
           required: false
           type: string
+        - name: phone
+          in: query
+          description: Phone number
+          required: true
+          type: string
       responses:
         "200":
           description: User created
@@ -261,6 +266,7 @@ definitions:
       - lastName
       - gender
       - email
+      - phone
     properties:
       firstName:
         type: string
@@ -273,6 +279,8 @@ definitions:
       aadvantageId:
         type: string
       id:
+        type: string
+      phone:
         type: string
   Reservation:
     required:

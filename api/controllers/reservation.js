@@ -4,7 +4,7 @@ const mongoHelper       = require('../helpers/mongoHelper');
 const randomstring      = require('randomstring');
 const users             = require('./user');
 const flights           = require('./flight');
-const q                 = require('../middleware/reminder');
+const {reminder}                = require('../middleware/reminder');
 
 module.exports = {
     reservation: reservation,
@@ -49,7 +49,7 @@ function createReservation(req, res) {
                     return;
                 };
                 // set reminders
-                //setReminders(reservation.flightIds)
+                users.retrieveUser(record.userId).then((u) => setReminders(reservation.flightIds, u))
                 res.json(reservation);
             });
         } catch(err) {
@@ -112,7 +112,7 @@ function hydrateReservationResponse(reservation) {
                 reservation.flights = flightsData;
             });
             promises.push(flightsPromise);
-
+            
             Promise.all(promises).then(function() {
                 delete(reservation.userId);
                 delete(reservation.flightIds);
@@ -127,12 +127,13 @@ function hydrateReservationResponse(reservation) {
     });
 }
 
-function setReminders(ids) {
+function setReminders(ids, user) {
     let f = flights.retrieveFlights(ids)
 
     f.then((res) => {
         res.forEach(element => {
             // TODO: Add to queue
+            reminder.add([element, user]);
         });
     })
 }

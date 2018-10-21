@@ -36,6 +36,7 @@ function createUser(req, res) {
     record.gender = _.get(req, "swagger.params.gender.value");
     record.email = _.toLower(_.get(req, "swagger.params.email.value"));
     record.aadvantageId = _.get(req, "swagger.params.aadvantageNumber.value");
+    record.phone = _.get(req, "swagger.params.phone.value")
 
     if (!emailValidator.validate(record.email)) {
         res.status(400).json({"error": "Invalid email address"});
